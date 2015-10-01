@@ -1,15 +1,7 @@
 
 import org.scalatest.{FlatSpec, Matchers}
 
-//class Ex5 extends FlatSpec with Matchers {
-//
-//  "Luhn reverse and remove" should "return ((4,3,2,1), 5) for (1,2,3,4,5)" in {
-//    Luhn2.reverseAndRemove("12345") should be (List(4,3,2,1), 5)
-//  }
-//
-//}
-
-class Ex5_Old extends FlatSpec with Matchers {
+class Ex5 extends FlatSpec with Matchers {
 
   "Luhn remove last number" should "have 5432 for 54321" in {
 
