@@ -1,5 +1,7 @@
 import org.scalatest.{Matchers, FlatSpec}
 
+import scala.annotation.tailrec
+
 /**
  * Created by administrator on 30/09/15.
  */
@@ -37,6 +39,19 @@ class Ex6_yyy extends FlatSpec with Matchers {
 
   def sum3(x:Int)(y:Int)(z:Int) : Int = {x + y + z}
 
+  @tailrec
+  private def sum(seq:Seq[Int], acc:Int=0) : Int = {
+
+    if(!seq.isEmpty) sum(seq.tail, acc+seq.head)
+    else acc
+  }
+
+  @tailrec
+  private def sumP(seq:Seq[Int], acc:Int=0) : Int = seq match {
+    case( Nil ) => acc
+    case( head :: tail ) => sumP(tail, acc+head)
+  }
+
   "Double" should "double *duh*!" in {
 
     assert( double(4) == 8)
@@ -47,8 +62,8 @@ class Ex6_yyy extends FlatSpec with Matchers {
 
   "Sum" should "errr.... sum" in {
 
-    sum(1,2) should be (3)
-    sum(3,-4) should be (-1)
+    sum(1,2) shouldBe 3
+    sum(3,-4) shouldBe -1
   }
 
   "Check length" should "check the length of a string" in {
@@ -72,17 +87,38 @@ class Ex6_yyy extends FlatSpec with Matchers {
   }
 
   "Check mapper" should "double 4 to 8" in {
-    mapper(4, 8, (x:Int)=>x*2) should be (Seq(8, 10, 12, 14, 16))
+    mapper(4, 8, (x:Int)=>x*2) shouldBe Seq(8, 10, 12, 14, 16)
   }
 
   it should "increment 5 to 7" in {
-    mapper(5, 7, (x:Int)=>x+1) should be (Seq(6, 7, 8))
+    mapper(5, 7, (x:Int)=>x+1) shouldBe Seq(6, 7, 8)
   }
 
   "Check curried sum3" should "allow simple summation" in {
     val sumPlus4and5 = sum3(4)(5)_
 
-    sumPlus4and5(6) should be (15)
+    sumPlus4and5(6) shouldBe 15
   }
 
+
+
+  "sum" should "sum a sequence" in {
+    sum( Seq(1,2,3) ) shouldBe 6
+  }
+  it should "sum another" in {
+    sum( Seq(1,2,5) ) shouldBe 8
+  }
+  it should "return 0 for an empty sequence" in {
+    sum( Seq() ) shouldBe 0
+  }
+
+  "sumP" should "sum a sequence" in {
+    sumP( Seq(1,2,3) ) shouldBe 6
+  }
+  it should "sum another" in {
+    sumP( Seq(1,2,5) ) shouldBe 8
+  }
+  it should "return 0 for an empty sequence" in {
+    sumP( Seq() ) shouldBe 0
+  }
 }

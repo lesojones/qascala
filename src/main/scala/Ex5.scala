@@ -46,7 +46,7 @@ object Luhn {
   def isEven(i:Int) : Boolean = { ! isOdd(i) }
   def isOdd(i:Int)  : Boolean = { (i % 2) == 1 }
 
-  def doSum( digits: Seq[Int] )= {
+  def doSum( digits: Seq[Int] ) : Int = {
     val index = 1 to digits.size
 
     index.zip(digits).map( e => e match {
