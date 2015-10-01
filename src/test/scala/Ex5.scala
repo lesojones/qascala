@@ -71,5 +71,12 @@ class Ex5 extends FlatSpec with Matchers {
     Luhn.checkValid("3096240644450216") should be (true)
   }
 
+  it should "be valid for 378282246310005" in {
+    Luhn.checkValid("378282246310005") should be (true)
+  }
+
+  it should "have sum of 55 for 378282246310005" in {
+    Luhn.checkSum("378282246310005") should be (55)
+  }
 
 }

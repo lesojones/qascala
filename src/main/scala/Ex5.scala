@@ -34,7 +34,7 @@ class Ex5 {
 
 object Luhn {
 
-  def charToInt(ch: Char) : Int = { ch - 48 }
+  def charToInt(ch: Char) : Int = ch.toString().toInt // { ch - 48 }
 
   def reverseExtract( ccn: String ) : (List[Int], Int) = {
 
@@ -57,7 +57,20 @@ object Luhn {
         case x if x > 9 => x-9
         case y => y
       }
-    ).foldLeft(0)(_ + _)
+    ).
+      // foldLeft(0)(_ + _)
+      reduce(_ + _)
+  }
+
+  def checkSum(ccn:String) : Int = {
+    reverseExtract(ccn) match {
+      case ( digits, last ) => {
+        //        val total : Int = sum( subtract9fromGT9( doDoubles( digits ) ) )
+        val total : Int = doSum( digits )
+
+        total
+      }
+    }
   }
 
   def checkValid(ccn:String) : Boolean = {
